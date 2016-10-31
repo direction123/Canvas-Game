@@ -66,6 +66,7 @@ var Engine = (function(global) {
     function init() {
         reset();
         lastTime = Date.now();
+        document.getElementById("score").innerHTML = score;
         main();
     }
 

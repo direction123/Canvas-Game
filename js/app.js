@@ -38,7 +38,15 @@ Player.prototype.update = function() {
         var enemy = allEnemies[i];
         if(Math.sqrt(Math.pow(this.x-enemy.x,2)+Math.pow(this.y-enemy.y,2))<50) {
             this.resetPlayer();
+            break;
         }
+    }
+};
+
+Player.prototype.updateScore = function(prev_y) {
+    if(this.y==0 && prev_y!=0) {
+        score += 1;
+        document.getElementById("score").innerHTML = score;
     }
 };
 
@@ -52,6 +60,7 @@ Player.prototype.render = function() {
 }
 
 Player.prototype.handleInput = function(key) {
+    var prev_y = this.y;
     if(key=='left') {
         if(this.x>=101) this.x -= 101;
     } else if(key=='right') {
@@ -62,6 +71,7 @@ Player.prototype.handleInput = function(key) {
         if(this.y<=332) this.y += 83;
     }
     this.update();
+    this.updateScore(prev_y);
 }
 
 // Now instantiate your objects.
@@ -73,7 +83,7 @@ var Enemy3 = new Enemy(202,166);
 var allEnemies = [Enemy1, Enemy2, Enemy3];
 
 var player = new Player(101,415);
-
+var score = 0;
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
