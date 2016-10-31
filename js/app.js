@@ -28,11 +28,13 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function(x, y) {
+    //define a player
     this.sprite = 'images/char-horn-girl.png';
     this.x = x;
     this.y = y;
 }
 
+//Update the player's positon when there is a collision with any enermy
 Player.prototype.update = function() {
     for(var i=0; i<allEnemies.length;i++) {
         var enemy = allEnemies[i];
@@ -43,6 +45,8 @@ Player.prototype.update = function() {
     }
 };
 
+
+//Update the player's score when it reaches to the water
 Player.prototype.updateScore = function(prev_y) {
     if(this.y==0 && prev_y!=0) {
         score += 1;
@@ -50,15 +54,18 @@ Player.prototype.updateScore = function(prev_y) {
     }
 };
 
+//Reset the player's position to the starting point
 Player.prototype.resetPlayer = function() {
     this.x = 101;
     this.y = 415;
 }
 
+//Draw the player on the screen
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
+//Handle keyboard input: update the player's postion, then check if there is a collsion or win
 Player.prototype.handleInput = function(key) {
     var prev_y = this.y;
     if(key=='left') {
@@ -83,6 +90,8 @@ var Enemy3 = new Enemy(202,166);
 var allEnemies = [Enemy1, Enemy2, Enemy3];
 
 var player = new Player(101,415);
+
+//initialize score
 var score = 0;
 
 // This listens for key presses and sends the keys to your
